@@ -131,6 +131,7 @@ function(download_project)
     endif()
     set(${DL_ARGS_PROJ}_SOURCE_DIR "${DL_ARGS_SOURCE_DIR}" PARENT_SCOPE)
     set(${DL_ARGS_PROJ}_BINARY_DIR "${DL_ARGS_BINARY_DIR}" PARENT_SCOPE)
+    set(DL_ARGS_LOG_DIR "${DL_ARGS_PREFIX}/${DL_ARGS_PROJ}-log")
 
     # The way that CLion manages multiple configurations, it causes a copy of
     # the CMakeCache.txt to be copied across due to it not expecting there to
@@ -153,7 +154,7 @@ function(download_project)
                         -D "CMAKE_MAKE_PROGRAM:FILE=${CMAKE_MAKE_PROGRAM}"
                         .
                     RESULT_VARIABLE result
-                    ${OUTPUT_QUIET}
+                    #${OUTPUT_QUIET}
                     WORKING_DIRECTORY "${DL_ARGS_DOWNLOAD_DIR}"
     )
     if(result)
@@ -161,7 +162,7 @@ function(download_project)
     endif()
     execute_process(COMMAND ${CMAKE_COMMAND} --build .
                     RESULT_VARIABLE result
-                    ${OUTPUT_QUIET}
+                    #${OUTPUT_QUIET}
                     WORKING_DIRECTORY "${DL_ARGS_DOWNLOAD_DIR}"
     )
     if(result)

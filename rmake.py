@@ -166,6 +166,7 @@ def config_cmd():
           cmake_options.append( f"-D{i}" )
 
     cmake_options.append( f"{src_path}")
+    #cmake_options.append( f"--trace")
 
 #   case "${ID}" in
 #     centos|rhel)
@@ -213,6 +214,7 @@ def run_cmd(exe, opts):
     else:
         sh = True
     print(program)
+    sys.stdout.flush()
     proc = subprocess.run(program, check=True, stderr=subprocess.STDOUT, shell=sh)
     #proc = subprocess.Popen(cmd, cwd=os.getcwd())
     #cwd=os.path.join(workingdir,"..",".."), stdout=fout, stderr=fout,
@@ -229,8 +231,8 @@ def main():
     run_cmd(exe, opts)
 
     # make/build/install
-    exe, opts = make_cmd()
-    run_cmd(exe, opts)
+    #exe, opts = make_cmd()
+    #run_cmd(exe, opts)
 
 
 if __name__ == '__main__':

@@ -6,20 +6,14 @@ cmake_minimum_required(VERSION 2.8.2)
 project(${DL_ARGS_PROJ}-download NONE)
 
 include(ExternalProject)
-if(${DL_ARGS_BUILD_PROJECT})
-    ExternalProject_Add(${DL_ARGS_PROJ}-download
-                        ${DL_ARGS_UNPARSED_ARGUMENTS}
-                        SOURCE_DIR          "${DL_ARGS_SOURCE_DIR}"
-                        TEST_COMMAND        ""
-    )
-else()
-    ExternalProject_Add(${DL_ARGS_PROJ}-download
-                        ${DL_ARGS_UNPARSED_ARGUMENTS}
-                        SOURCE_DIR          "${DL_ARGS_SOURCE_DIR}"
-                        TEST_COMMAND        ""
-                        UPDATE_COMMAND      ""
-                        CONFIGURE_COMMAND   ""
-                        BUILD_COMMAND       ""
-                        INSTALL_COMMAND     ""
-    )
-endif()
+ExternalProject_Add(${DL_ARGS_PROJ}-download
+                    ${DL_ARGS_UNPARSED_ARGUMENTS}
+                    LOG_DOWNLOAD        TRUE
+                    LOG_CONFIGURE       TRUE
+                    LOG_BUILD           TRUE
+                    LOG_INSTALL         TRUE
+                    SOURCE_DIR          "${DL_ARGS_SOURCE_DIR}"
+                    BINARY_DIR          "${DL_ARGS_BINARY_DIR}"
+                    LOG_DIR             "${DL_ARGS_LOG_DIR}"
+                    BUILD_COMMAND       ${CMAKE_COMMAND} --build ${DL_ARGS_BINARY_DIR}  --verbose
+)
