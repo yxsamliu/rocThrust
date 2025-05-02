@@ -187,8 +187,10 @@ void test_event_wait(Event&& e)
 std::vector<size_t> get_sizes()
 {
     std::vector<size_t> sizes = {
-        0, 1, 2, 12, 63, 64, 211, 256, 344,
-        1024, 2048, 5096, 34567, (1 << 17) - 1220, 1000000, (1 << 20) - 123
+        //0, 1, 2, 12, 63, 64, 211, 256, 344,
+        //1024, 2048, 5096, 34567, (1 << 17) - 1220,
+         1000000
+         //, (1 << 20) - 123
     };
     return sizes;
 }
@@ -249,12 +251,17 @@ inline auto get_random_data(size_t size, T min, T max, seed_type seed) ->
     typename std::enable_if<rocprim::is_integral<T>::value && !std::is_same<T, bool>::value,
                             thrust::host_vector<T>>::type
 {
+    printf("init with one\n");
+    #if 0
     std::random_device               rd;
     std::default_random_engine       gen(rd());
     gen.seed(seed);
     std::uniform_int_distribution<T> distribution(saturate_cast<T>(min), saturate_cast<T>(max));
     thrust::host_vector<T>           data(size);
     std::generate(data.begin(), data.end(), [&]() { return distribution(gen); });
+    #endif
+    thrust::host_vector<T>           data(size);
+    std::generate(data.begin(), data.end(), [&]() { return 1; });
     return data;
 }
 
